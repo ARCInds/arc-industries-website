@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Public routes only. Keep in sync with src/routes/paths.ts when pages are added. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://arcinds.com/</loc></url>
+  <url><loc>https://arcinds.com/about</loc></url>
+  <url><loc>https://arcinds.com/services</loc></url>
+  <url><loc>https://arcinds.com/projects</loc></url>
+  <url><loc>https://arcinds.com/clients</loc></url>
+  <url><loc>https://arcinds.com/certifications</loc></url>
+  <url><loc>https://arcinds.com/contact</loc></url>
+</urlset>
