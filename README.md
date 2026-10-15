@@ -117,3 +117,14 @@ To be documented. The site builds to static files in `dist/`. Requirements for t
 
 - Rewrite unknown paths to `index.html` (SPA fallback) so client-side routes work on direct visits and refreshes.
 - Serve the site at `https://arcinds.com`, which the canonical URLs, sitemap and `robots.txt` use.
+
+### Temporary client-review site (GitHub Pages)
+
+`.github/workflows/deploy-pages.yml` builds and publishes a review copy on every push to `master` (or when run manually from the Actions tab). In the repository settings, set **Pages → Source** to **GitHub Actions**.
+
+- URL: `https://<github-username>.github.io/<repository-name>/`
+- The workflow builds with `BASE_PATH=/<repository-name>/` and `VITE_REVIEW_BUILD=true`, which adds `noindex` to every page.
+- `404.html` is a copy of `index.html`, so direct visits and refreshes on routes such as `/about` work. GitHub Pages returns HTTP 404 for those first loads, which is expected.
+- The review site is public. The enquiry form does not send email; it offers the visitor's email app instead.
+
+The production build for `arcinds.com` is a plain `npm run build` and is not affected by these settings.

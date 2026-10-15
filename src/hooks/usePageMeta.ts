@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SITE_URL } from '../data/seo';
+import { IS_REVIEW_BUILD, SITE_URL } from '../data/seo';
 import type { PageMeta } from '../types/content';
 
 /** Creates or updates a <meta> tag identified by `name` or `property`. */
@@ -30,7 +30,7 @@ export function usePageMeta({ title, description, path, noIndex = false }: PageM
     setMeta('name', 'twitter:title', title);
     setMeta('name', 'twitter:description', description);
 
-    if (noIndex) setMeta('name', 'robots', 'noindex');
+    if (noIndex || IS_REVIEW_BUILD) setMeta('name', 'robots', 'noindex');
     else removeHeadTag('meta[name="robots"]');
 
     if (path) {

@@ -4,6 +4,9 @@ import type { PageMeta } from '../types/content';
 /** Official site origin, used for canonical and Open Graph URLs (keep in sync with public/). */
 export const SITE_URL = 'https://arcinds.com';
 
+/** Temporary client-review deployment (GitHub Pages): keep every page out of search results. */
+export const IS_REVIEW_BUILD = import.meta.env.VITE_REVIEW_BUILD === 'true';
+
 const defaultMeta: PageMeta = {
   title: 'ARC Industries | Construction & Civil Engineering Company in Bengaluru',
   description:
