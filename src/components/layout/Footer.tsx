@@ -34,8 +34,8 @@ const metallicText = (stops: string) =>
 // deeper lower half, for a polished-metal look.
 const arcText = {
   backgroundImage: [
-    'linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.12) 46%, rgba(0,20,70,0.22) 54%, rgba(0,20,70,0) 100%)',
-    'linear-gradient(90deg, #00B8FF 0%, #0787F5 45%, #0750B5 100%)',
+    'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 48%, rgba(0,25,90,0.28) 52%, rgba(0,25,90,0) 100%)',
+    'linear-gradient(90deg, #38C6FF 0%, #1E8FFF 50%, #0A5AD6 100%)',
   ].join(', '),
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
@@ -43,7 +43,7 @@ const arcText = {
 } as const;
 
 const silverText = metallicText(
-  '#FFFFFF 0%, #F4F6F9 38%, #B3BCC8 50%, #8E99A9 58%, #C9D0D9 78%, #FFFFFF 100%',
+  '#FFFFFF 0%, #F2F4F7 36%, #A9B3C0 50%, #7E8999 58%, #C4CBD5 78%, #FFFFFF 100%',
 );
 
 /** Column heading with a short brand-blue rule beneath it. */
@@ -96,7 +96,7 @@ function FooterBrand() {
         height={144}
         sx={{
           display: 'block',
-          height: { xs: 72, md: 'clamp(80px, 13vh, 120px)' },
+          height: { xs: 72, md: 'clamp(96px, 15vh, 144px)' },
           width: 'auto',
           filter: 'drop-shadow(0 0 22px rgba(80, 160, 255, 0.5))',
         }}
@@ -118,11 +118,11 @@ function FooterBrand() {
             display: 'block',
             width: 'fit-content',
             lineHeight: 1,
-            fontSize: { xs: '2.25rem', md: 'clamp(2.25rem, 6.4vh, 3.375rem)' },
+            fontSize: { xs: '2.25rem', md: 'clamp(2.75rem, 8vh, 4.25rem)' },
             fontWeight: 800,
-            letterSpacing: '0.02em',
+            letterSpacing: '0.03em',
             // Extended letterforms, like the printed wordmark.
-            transform: 'scaleX(1.3)',
+            transform: 'scaleX(1.5)',
             transformOrigin: 'left center',
             // A thin dark edge for depth, then a soft glow, as on the printed logo.
             filter:
@@ -136,11 +136,11 @@ function FooterBrand() {
           sx={{
             ...silverText,
             display: 'block',
-            mt: 0.75,
+            mt: { xs: 0.75, md: 1 },
             lineHeight: 1,
-            fontSize: { xs: '1.375rem', md: 'clamp(1.375rem, 4vh, 2.125rem)' },
+            fontSize: { xs: '1.375rem', md: 'clamp(1.75rem, 5vh, 2.625rem)' },
             fontWeight: 700,
-            letterSpacing: '4px',
+            letterSpacing: { xs: '4px', md: '0.2em' },
             filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45))',
           }}
         >
@@ -443,9 +443,9 @@ export default function Footer() {
               sx={{
                 mt: { xs: 2, md: 'clamp(12px, 2.4vh, 22px)' },
                 color: 'common.white',
-                fontSize: { xs: '0.75rem', md: '0.8125rem' },
+                fontSize: { xs: '0.75rem', md: 'clamp(0.8125rem, 1.75vh, 0.9375rem)' },
                 fontWeight: 500,
-                letterSpacing: { xs: '2px', md: '3px' },
+                letterSpacing: { xs: '2px', md: 'clamp(3px, 0.46vh, 4px)' },
                 textTransform: 'uppercase',
                 whiteSpace: { md: 'nowrap' },
               }}
@@ -455,11 +455,13 @@ export default function Footer() {
             <Box
               aria-hidden
               sx={{
-                width: 110,
+                width: { xs: 110, md: 150 },
                 height: 3,
                 mt: 1.5,
                 borderRadius: 2,
-                backgroundImage: CYAN_RULE,
+                // Bright cyan on the left, fading out to the right.
+                backgroundImage:
+                  'linear-gradient(90deg, #33C3FF 0%, #1E8FFF 55%, rgba(30, 143, 255, 0) 100%)',
               }}
             />
             <Typography
