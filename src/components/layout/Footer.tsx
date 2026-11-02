@@ -246,6 +246,21 @@ function FooterArt() {
           <filter id={`${id}-soft`}>
             <feGaussianBlur stdDeviation="7" />
           </filter>
+          <filter id={`${id}-softEdge`} x="-10%" y="-30%" width="120%" height="160%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+          {/* Highlight on the band's lower edge, only towards the top-right corner. */}
+          <linearGradient
+            id={`${id}-edgeFade`}
+            gradientUnits="userSpaceOnUse"
+            x1="900"
+            y1="0"
+            x2="1330"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#7CC4FF" stopOpacity="0" />
+            <stop offset="100%" stopColor="#7CC4FF" stopOpacity="0.45" />
+          </linearGradient>
         </defs>
         {/* Two shapes meeting the light edge at one point: a swoosh curving down to the left
             edge, and a band sweeping up into the top-right corner. */}
@@ -264,15 +279,17 @@ function FooterArt() {
             filter={`url(#${id}-soft)`}
           />
         </g>
+        {/* Blurred so its lower edge melts into the navy and photo below; the light area drawn
+            on top keeps its upper edge crisp. It extends above the top so the blur leaves no
+            seam along the top edge. */}
         <path
-          d="M410 163 C620 163 860 100 1090 0 H1330 C1130 95 820 178 410 163 Z"
+          d="M410 163 C620 163 860 100 1090 0 V-40 H1345 L1330 0 C1130 95 820 178 410 163 Z"
           fill={`url(#${id}-band)`}
+          filter={`url(#${id}-softEdge)`}
         />
-        {/* Light edge along the lower curves. */}
         <path
-          d="M1330 0 C1130 95 820 178 410 163 C280 184 80 224 0 300"
-          stroke="#7CC4FF"
-          strokeOpacity="0.45"
+          d="M1330 0 C1130 95 820 178 410 163"
+          stroke={`url(#${id}-edgeFade)`}
           strokeWidth="1.5"
           fill="none"
         />
