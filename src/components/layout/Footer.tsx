@@ -191,15 +191,15 @@ function FooterArt() {
           right: 0,
           top: 0,
           width: '66%',
-          height: '100%',
+          height: '80%',
           backgroundImage: `url(${backdrop.src})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 42%',
-          filter: 'grayscale(1) sepia(1) hue-rotate(190deg) saturate(2.0) brightness(0.88)',
+          backgroundPosition: 'center bottom',
+          filter: 'grayscale(1) sepia(1) hue-rotate(178deg) saturate(2.8) brightness(0.9)',
           mixBlendMode: 'normal',
-          opacity: 0.88,
+          opacity: 0.78,
           maskImage:
-            'linear-gradient(to right, transparent 0%, transparent 18%, black 42%), linear-gradient(to bottom, black 74%, transparent 97%)',
+            'linear-gradient(to right, transparent 0%, transparent 18%, black 42%), linear-gradient(to bottom, black 55%, transparent 100%)',
           maskComposite: 'intersect',
           WebkitMaskComposite: 'source-in',
         }}
@@ -260,25 +260,20 @@ function FooterArt() {
           <mask id={`${id}-ribbonMask`}>
             <rect width="1440" height="260" fill={`url(#${id}-ribbonFade)`} />
           </mask>
-          {/* Horizontal fade: keeps the band opaque on the left, dissolving it before it
-              reaches the photo area on the right so the construction photo shows through. */}
-          <linearGradient id={`${id}-bandFadeH`} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="white" />
-            <stop offset="44%" stopColor="white" />
-            <stop offset="63%" stopColor="white" stopOpacity="0" />
-          </linearGradient>
-          <mask id={`${id}-bandMaskH`}>
-            <rect width="1440" height="260" fill={`url(#${id}-bandFadeH)`} />
-          </mask>
         </defs>
         {/* Blue band between the light edge and the navy below: wide at the left edge, one
-            smooth ribbon up into the top-right corner. Masked so it fades out before the
-            photo area on the right. */}
+            smooth ribbon up into the top-right corner. */}
         <path
-          d="M0 120 C300 136 700 112 1070 0 H1440 V44 C1080 84 760 132 480 148 C250 160 100 190 0 240 Z"
+          d="M0 120 C300 136 700 112 1070 0 H1440 V64 C1080 96 760 136 480 150 C250 162 100 190 0 240 Z"
           fill={`url(#${id}-band)`}
-          fillOpacity="0.82"
-          mask={`url(#${id}-bandMaskH)`}
+        />
+        {/* Light edge along the band's lower curve. */}
+        <path
+          d="M1440 64 C1080 96 760 136 480 150 C250 162 100 190 0 240"
+          stroke="#7CC4FF"
+          strokeOpacity="0.45"
+          strokeWidth="1.5"
+          fill="none"
         />
         {/* Lighter ribbon, tapering into the band towards the middle. */}
         <g mask={`url(#${id}-ribbonMask)`}>
