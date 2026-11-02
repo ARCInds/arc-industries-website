@@ -233,33 +233,6 @@ function FooterArt() {
             <stop offset="84%" stopColor="#1C7BE6" />
             <stop offset="100%" stopColor="#2EC5FF" />
           </linearGradient>
-          {/* Lighter ribbon overlapping the band on the left: glossy at the top, deeper below. */}
-          <linearGradient
-            id={`${id}-ribbon`}
-            gradientUnits="userSpaceOnUse"
-            x1="0"
-            y1="140"
-            x2="40"
-            y2="240"
-          >
-            <stop offset="0%" stopColor="#3C8DEB" />
-            <stop offset="100%" stopColor="#1350B8" />
-          </linearGradient>
-          <linearGradient
-            id={`${id}-ribbonFade`}
-            gradientUnits="userSpaceOnUse"
-            x1="0"
-            y1="0"
-            x2="560"
-            y2="0"
-          >
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="55%" stopColor="#FFFFFF" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-          </linearGradient>
-          <mask id={`${id}-ribbonMask`}>
-            <rect width="1440" height="260" fill={`url(#${id}-ribbonFade)`} />
-          </mask>
         </defs>
         {/* Blue band between the light edge and the navy below: wide at the left edge, one
             smooth ribbon up into the top-right corner. */}
@@ -275,20 +248,6 @@ function FooterArt() {
           strokeWidth="1.5"
           fill="none"
         />
-        {/* Lighter ribbon, tapering into the band towards the middle. */}
-        <g mask={`url(#${id}-ribbonMask)`}>
-          <path
-            d="M0 158 C170 142 340 136 520 146 L480 150 C280 155 70 170 0 252 Z"
-            fill={`url(#${id}-ribbon)`}
-          />
-          <path
-            d="M0 158 C170 142 340 136 520 146"
-            stroke="#9FD0FF"
-            strokeOpacity="0.3"
-            strokeWidth="1.5"
-            fill="none"
-          />
-        </g>
         {/* Light area continuing the page above, sweeping up to the right. */}
         <path d="M0 0 H1070 C700 108 300 118 0 112 Z" fill={`url(#${id}-light)`} />
       </Box>
