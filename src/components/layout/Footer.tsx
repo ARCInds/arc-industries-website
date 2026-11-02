@@ -264,12 +264,12 @@ function FooterArt() {
         {/* Blue band between the light edge and the navy below: wide at the left edge, one
             smooth ribbon up into the top-right corner. */}
         <path
-          d="M0 120 C300 136 700 112 1070 0 H1440 V64 C1080 96 760 136 480 150 C250 162 100 190 0 240 Z"
+          d="M0 120 C300 136 700 112 1070 0 H1330 C1100 72 780 134 480 150 C250 162 100 190 0 240 Z"
           fill={`url(#${id}-band)`}
         />
         {/* Light edge along the band's lower curve. */}
         <path
-          d="M1440 64 C1080 96 760 136 480 150 C250 162 100 190 0 240"
+          d="M1330 0 C1100 72 780 134 480 150 C250 162 100 190 0 240"
           stroke="#7CC4FF"
           strokeOpacity="0.45"
           strokeWidth="1.5"
