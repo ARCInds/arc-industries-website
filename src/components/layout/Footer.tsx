@@ -308,6 +308,8 @@ function FooterArt() {
         preserveAspectRatio="none"
         sx={{
           position: 'absolute',
+          // Above the bottom bar's dark tint so the accents keep their full colour.
+          zIndex: 1,
           left: 0,
           bottom: 0,
           width: '100%',
@@ -315,49 +317,46 @@ function FooterArt() {
         }}
       >
         <defs>
-          <linearGradient id={`${id}-shard`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#2A8BF5" />
-            <stop offset="100%" stopColor="#0B4CBC" />
+          <linearGradient id={`${id}-shard`} x1="0" y1="0" x2="0.6" y2="1">
+            <stop offset="0%" stopColor="#3FA2F8" />
+            <stop offset="100%" stopColor="#0C5CD6" />
           </linearGradient>
-          <linearGradient id={`${id}-wedge`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0A3C9E" stopOpacity="0" />
-            <stop offset="45%" stopColor="#0E52C4" />
-            <stop offset="100%" stopColor="#2A8BF5" />
+          {/* Sweep along the bottom: a subtle darker swoosh through the middle, turning electric
+              blue towards the blade. */}
+          <linearGradient
+            id={`${id}-sweep`}
+            gradientUnits="userSpaceOnUse"
+            x1="420"
+            y1="0"
+            x2="1303"
+            y2="0"
+          >
+            <stop offset="0%" stopColor="#020C24" stopOpacity="0" />
+            <stop offset="30%" stopColor="#030F2C" stopOpacity="0.55" />
+            <stop offset="62%" stopColor="#0A45B5" stopOpacity="0.9" />
+            <stop offset="80%" stopColor="#1E8FFF" />
+            <stop offset="100%" stopColor="#3AA8FF" />
           </linearGradient>
+          {/* Brushed silver along the blade: bright white in the middle, grey bands beyond. */}
           <linearGradient id={`${id}-silver`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#8D99AB" />
-            <stop offset="40%" stopColor="#D5DBE3" />
-            <stop offset="75%" stopColor="#FFFFFF" />
-            <stop offset="100%" stopColor="#E9EDF2" />
-          </linearGradient>
-          <linearGradient id={`${id}-blade`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0E52C4" />
-            <stop offset="55%" stopColor="#1E8BFF" />
-            <stop offset="100%" stopColor="#2AA8FF" />
+            <stop offset="0%" stopColor="#8E9AAD" />
+            <stop offset="25%" stopColor="#E8ECF1" />
+            <stop offset="45%" stopColor="#FFFFFF" />
+            <stop offset="65%" stopColor="#C3C9D2" />
+            <stop offset="80%" stopColor="#9DA6B2" />
+            <stop offset="100%" stopColor="#DDE1E6" />
           </linearGradient>
         </defs>
 
-        {/* Faint lighter sweep across the bottom middle. */}
-        <path
-          d="M520 170 C760 140 1000 128 1240 118 L1240 170 Z"
-          fill="#0E4DB4"
-          fillOpacity="0.3"
-        />
-
         {/* Bottom-left shard, with a brighter strip along its upper edge. */}
         <path d="M0 52 L250 170 H0 Z" fill={`url(#${id}-shard)`} />
-        <path d="M0 52 L250 170 L205 170 L0 82 Z" fill="#5BB8FF" fillOpacity="0.55" />
+        <path d="M0 52 L250 170 L205 170 L0 82 Z" fill="#7CCBFF" fillOpacity="0.7" />
 
-        {/* Bottom-right blue wedge, the silver blade, and the blue corner below it. */}
-        {/* Bottom-right: a soft blue sweep, a silver blade tapering to a point on the left, and
-            a bright blue wedge directly beneath it. */}
-        <path
-          d="M800 170 C1000 150 1250 86 1440 28 V38 L940 170 Z"
-          fill={`url(#${id}-wedge)`}
-          fillOpacity="0.55"
-        />
-        <path d="M940 170 L1440 38 V88 L1050 170 Z" fill={`url(#${id}-silver)`} />
-        <path d="M1050 170 L1440 88 V170 Z" fill={`url(#${id}-blade)`} />
+        {/* Bottom-right: an electric-blue sweep along the bottom running into a silver blade
+            that tapers to a point at the bottom; navy shows above and below the blade. */}
+        <path d="M420 170 C700 160 1000 136 1303 113 L1191 170 Z" fill={`url(#${id}-sweep)`} />
+        <path d="M1150 170 L1303 113 L1191 170 Z" fill="#0A47B8" />
+        <path d="M1191 170 L1440 44 V95 Z" fill={`url(#${id}-silver)`} />
       </Box>
     </Box>
   );
@@ -568,6 +567,8 @@ export default function Footer() {
       >
         <Container
           sx={(theme) => ({
+            position: 'relative',
+            zIndex: 2,
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             alignItems: { sm: 'center' },
