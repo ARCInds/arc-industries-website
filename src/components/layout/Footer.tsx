@@ -216,6 +216,8 @@ function FooterArt() {
           top: -1,
           width: '100%',
           height: { xs: 96, md: 'clamp(130px, 30vh, 260px)' },
+          // The swoosh runs a little below the drawing area at the left edge.
+          overflow: 'visible',
         }}
       >
         <defs>
@@ -224,34 +226,51 @@ function FooterArt() {
             <stop offset="0%" stopColor="#FFFFFF" />
             <stop offset="100%" stopColor="#E3EAF3" />
           </linearGradient>
-          {/* Blue band under the light edge: deep blue on the left, brightening to cyan in the
+          {/* Band under the light edge: dark navy at the meeting point, brightening to cyan in the
               top-right corner. */}
           <linearGradient id={`${id}-band`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0F4CB2" />
-            <stop offset="35%" stopColor="#0B3D98" />
-            <stop offset="62%" stopColor="#0E4DB4" />
-            <stop offset="84%" stopColor="#1C7BE6" />
+            <stop offset="0%" stopColor="#08245E" />
+            <stop offset="35%" stopColor="#0A2F7A" />
+            <stop offset="60%" stopColor="#0D45A6" />
+            <stop offset="82%" stopColor="#1C7BE6" />
             <stop offset="100%" stopColor="#2EC5FF" />
           </linearGradient>
-          {/* Swoosh on the left: brighter blue at the top, deeper below. */}
+          {/* Swoosh on the left: deep blue, slightly brighter at the top. */}
           <linearGradient id={`${id}-swoosh`} x1="0" y1="0" x2="0.3" y2="1">
-            <stop offset="0%" stopColor="#2A72E0" />
-            <stop offset="100%" stopColor="#0E47AE" />
+            <stop offset="0%" stopColor="#1450BE" />
+            <stop offset="100%" stopColor="#0A3A96" />
           </linearGradient>
+          <clipPath id={`${id}-swooshClip`}>
+            <path d="M0 138 C150 150 300 163 410 163 C280 184 80 224 0 300 Z" />
+          </clipPath>
+          <filter id={`${id}-soft`}>
+            <feGaussianBlur stdDeviation="7" />
+          </filter>
         </defs>
         {/* Two shapes meeting the light edge at one point: a swoosh curving down to the left
             edge, and a band sweeping up into the top-right corner. */}
         <path
-          d="M0 138 C150 150 300 163 410 163 C280 180 90 210 0 258 Z"
+          d="M0 138 C150 150 300 163 410 163 C280 184 80 224 0 300 Z"
           fill={`url(#${id}-swoosh)`}
         />
+        {/* Soft lighter streak inside the swoosh, following its lower curve. */}
+        <g clipPath={`url(#${id}-swooshClip)`}>
+          <path
+            d="M410 163 C280 174 80 206 0 274"
+            stroke="#3D8BF5"
+            strokeOpacity="0.55"
+            strokeWidth="26"
+            fill="none"
+            filter={`url(#${id}-soft)`}
+          />
+        </g>
         <path
-          d="M410 163 C620 163 860 100 1090 0 H1330 C1120 80 800 150 410 163 Z"
+          d="M410 163 C620 163 860 100 1090 0 H1330 C1130 95 820 178 410 163 Z"
           fill={`url(#${id}-band)`}
         />
         {/* Light edge along the lower curves. */}
         <path
-          d="M1330 0 C1120 80 800 150 410 163 C280 180 90 210 0 258"
+          d="M1330 0 C1130 95 820 178 410 163 C280 184 80 224 0 300"
           stroke="#7CC4FF"
           strokeOpacity="0.45"
           strokeWidth="1.5"
