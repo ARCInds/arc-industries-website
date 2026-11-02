@@ -233,23 +233,35 @@ function FooterArt() {
             <stop offset="84%" stopColor="#1C7BE6" />
             <stop offset="100%" stopColor="#2EC5FF" />
           </linearGradient>
+          {/* Swoosh on the left: brighter blue at the top, deeper below. */}
+          <linearGradient id={`${id}-swoosh`} x1="0" y1="0" x2="0.3" y2="1">
+            <stop offset="0%" stopColor="#2A72E0" />
+            <stop offset="100%" stopColor="#0E47AE" />
+          </linearGradient>
         </defs>
-        {/* Blue band between the light edge and the navy below: wide at the left edge, one
-            smooth ribbon up into the top-right corner. */}
+        {/* Two shapes meeting the light edge at one point: a swoosh curving down to the left
+            edge, and a band sweeping up into the top-right corner. */}
         <path
-          d="M0 112 C300 118 700 108 1070 0 H1330 C1100 72 780 134 480 150 C280 155 70 170 0 252 Z"
+          d="M0 138 C150 150 300 163 410 163 C280 180 90 210 0 258 Z"
+          fill={`url(#${id}-swoosh)`}
+        />
+        <path
+          d="M410 163 C620 163 860 100 1090 0 H1330 C1120 80 800 150 410 163 Z"
           fill={`url(#${id}-band)`}
         />
-        {/* Light edge along the band's lower curve. */}
+        {/* Light edge along the lower curves. */}
         <path
-          d="M1330 0 C1100 72 780 134 480 150 C280 155 70 170 0 252"
+          d="M1330 0 C1120 80 800 150 410 163 C280 180 90 210 0 258"
           stroke="#7CC4FF"
           strokeOpacity="0.45"
           strokeWidth="1.5"
           fill="none"
         />
-        {/* Light area continuing the page above, sweeping up to the right. */}
-        <path d="M0 0 H1070 C700 108 300 118 0 112 Z" fill={`url(#${id}-light)`} />
+        {/* Light area continuing the page above: dips gently, then sweeps up to the right. */}
+        <path
+          d="M0 0 H1090 C860 100 620 163 410 163 C300 163 150 150 0 138 Z"
+          fill={`url(#${id}-light)`}
+        />
       </Box>
 
       {/* Angular accents along the bottom bar: a blue shard in the bottom-left corner, and a
