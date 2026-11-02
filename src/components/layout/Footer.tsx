@@ -190,14 +190,14 @@ function FooterArt() {
           position: 'absolute',
           right: 0,
           top: 0,
-          width: '64%',
+          width: '66%',
           height: '100%',
           backgroundImage: `url(${backdrop.src})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 58%',
-          filter: 'grayscale(1) sepia(1) hue-rotate(190deg) saturate(1.5) brightness(0.7)',
+          backgroundPosition: 'center 42%',
+          filter: 'grayscale(1) sepia(1) hue-rotate(190deg) saturate(2.0) brightness(0.88)',
           mixBlendMode: 'normal',
-          opacity: 0.75,
+          opacity: 0.88,
           maskImage:
             'linear-gradient(to right, transparent 0%, transparent 18%, black 42%), linear-gradient(to bottom, black 74%, transparent 97%)',
           maskComposite: 'intersect',
@@ -260,13 +260,25 @@ function FooterArt() {
           <mask id={`${id}-ribbonMask`}>
             <rect width="1440" height="260" fill={`url(#${id}-ribbonFade)`} />
           </mask>
+          {/* Horizontal fade: keeps the band opaque on the left, dissolving it before it
+              reaches the photo area on the right so the construction photo shows through. */}
+          <linearGradient id={`${id}-bandFadeH`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="white" />
+            <stop offset="44%" stopColor="white" />
+            <stop offset="63%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id={`${id}-bandMaskH`}>
+            <rect width="1440" height="260" fill={`url(#${id}-bandFadeH)`} />
+          </mask>
         </defs>
         {/* Blue band between the light edge and the navy below: wide at the left edge, one
-            smooth ribbon up into the top-right corner. */}
+            smooth ribbon up into the top-right corner. Masked so it fades out before the
+            photo area on the right. */}
         <path
           d="M0 120 C300 136 700 112 1070 0 H1440 V44 C1080 84 760 132 480 148 C250 160 100 190 0 240 Z"
           fill={`url(#${id}-band)`}
-          fillOpacity="0.68"
+          fillOpacity="0.82"
+          mask={`url(#${id}-bandMaskH)`}
         />
         {/* Lighter ribbon, tapering into the band towards the middle. */}
         <g mask={`url(#${id}-ribbonMask)`}>
