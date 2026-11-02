@@ -264,12 +264,12 @@ function FooterArt() {
         {/* Blue band between the light edge and the navy below: wide at the left edge, one
             smooth ribbon up into the top-right corner. */}
         <path
-          d="M0 120 C300 136 700 112 1070 0 H1330 C1100 72 780 134 480 150 C250 162 100 190 0 240 Z"
+          d="M0 112 C300 118 700 108 1070 0 H1330 C1100 72 780 134 480 150 C280 155 70 170 0 252 Z"
           fill={`url(#${id}-band)`}
         />
         {/* Light edge along the band's lower curve. */}
         <path
-          d="M1330 0 C1100 72 780 134 480 150 C250 162 100 190 0 240"
+          d="M1330 0 C1100 72 780 134 480 150 C280 155 70 170 0 252"
           stroke="#7CC4FF"
           strokeOpacity="0.45"
           strokeWidth="1.5"
@@ -278,19 +278,19 @@ function FooterArt() {
         {/* Lighter ribbon, tapering into the band towards the middle. */}
         <g mask={`url(#${id}-ribbonMask)`}>
           <path
-            d="M0 172 C170 152 340 142 520 146 C280 160 110 190 0 240 Z"
+            d="M0 158 C170 142 340 136 520 146 L480 150 C280 155 70 170 0 252 Z"
             fill={`url(#${id}-ribbon)`}
           />
           <path
-            d="M0 172 C170 152 340 142 520 146"
+            d="M0 158 C170 142 340 136 520 146"
             stroke="#9FD0FF"
             strokeOpacity="0.3"
             strokeWidth="1.5"
             fill="none"
           />
         </g>
-        {/* Light area continuing the page above: dips slightly, then sweeps up to the right. */}
-        <path d="M0 0 H1070 C700 112 300 136 0 120 Z" fill={`url(#${id}-light)`} />
+        {/* Light area continuing the page above, sweeping up to the right. */}
+        <path d="M0 0 H1070 C700 108 300 118 0 112 Z" fill={`url(#${id}-light)`} />
       </Box>
 
       {/* Angular accents along the bottom bar: a blue shard in the bottom-left corner, and a
