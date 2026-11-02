@@ -16,7 +16,9 @@ import { SHORT_SCREEN } from '../../theme/theme';
 const TAGLINE = 'Building Infrastructure. Delivering Trust.';
 
 const CYAN = '#33C3FF';
-const CYAN_RULE = 'linear-gradient(90deg, #00B8FF 0%, #0787F5 100%)';
+// Glowing rule: brightest cyan just left of centre, fading out at both ends.
+const GLOW_RULE =
+  'linear-gradient(90deg, rgba(30, 143, 255, 0.25) 0%, #4FD0FF 35%, #1E8FFF 65%, rgba(30, 143, 255, 0) 100%)';
 
 // Construction photo blended into the top-right of the footer.
 const backdrop = siteImages.footer;
@@ -61,11 +63,12 @@ function FooterHeading({ children }: { children: string }) {
         '&::after': {
           content: '""',
           display: 'block',
-          width: 48,
+          width: 72,
           height: 3,
           mt: 1,
           borderRadius: 2,
-          backgroundImage: CYAN_RULE,
+          backgroundImage: GLOW_RULE,
+          filter: 'drop-shadow(0 0 4px rgba(51, 195, 255, 0.6))',
         },
       }}
     >
@@ -375,6 +378,7 @@ const linkSx = {
 } as const;
 
 export default function Footer() {
+  const chevronGradientId = `${useId().replace(/:/g, '')}-chevron`;
   return (
     <Box
       component="footer"
@@ -394,6 +398,15 @@ export default function Footer() {
       })}
     >
       <FooterArt />
+      {/* Gradient for the link chevrons: light cyan at the top, deeper blue below. */}
+      <Box component="svg" aria-hidden sx={{ position: 'absolute', width: 0, height: 0 }}>
+        <defs>
+          <linearGradient id={chevronGradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#6FD6FF" />
+            <stop offset="100%" stopColor="#1673F0" />
+          </linearGradient>
+        </defs>
+      </Box>
       {backdrop.isPlaceholder && (
         <Typography
           variant="caption"
@@ -459,9 +472,8 @@ export default function Footer() {
                 height: 3,
                 mt: 1.5,
                 borderRadius: 2,
-                // Bright cyan on the left, fading out to the right.
-                backgroundImage:
-                  'linear-gradient(90deg, #33C3FF 0%, #1E8FFF 55%, rgba(30, 143, 255, 0) 100%)',
+                backgroundImage: GLOW_RULE,
+                filter: 'drop-shadow(0 0 4px rgba(51, 195, 255, 0.6))',
               }}
             />
             <Typography
@@ -503,7 +515,11 @@ export default function Footer() {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: 1,
-                        '& svg': { color: '#1E8FFF', transition: 'transform 0.2s' },
+                        '& svg': {
+                          stroke: `url(#${chevronGradientId})`,
+                          filter: 'drop-shadow(0 0 3px rgba(30, 143, 255, 0.7))',
+                          transition: 'transform 0.2s',
+                        },
                         '&:hover svg': { transform: 'translateX(3px)' },
                       }}
                     >
