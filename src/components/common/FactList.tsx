@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import type { Fact } from '../../types/content';
+import { SHORT_SCREEN } from '../../theme/theme';
 
 interface FactListProps {
   facts: Fact[];
@@ -17,6 +18,7 @@ export default function FactList({ facts }: FactListProps) {
             gridTemplateColumns: { xs: '1fr', sm: '140px 1fr' },
             gap: { xs: 0.25, sm: 2 },
             py: 1.75,
+            [SHORT_SCREEN]: { py: 0.75 },
             borderTop: 1,
             borderColor: 'divider',
             '&:last-of-type': { borderBottom: 1, borderColor: 'divider' },

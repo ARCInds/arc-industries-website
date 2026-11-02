@@ -2,7 +2,7 @@
 
 Corporate portfolio website for **ARC Industries**, a Bengaluru-based construction company working across Government, PSU and Private sector projects.
 
-It is a static single-page application: all content lives in data files, and there is no backend. The enquiry form validates input and helps visitors send their enquiry by email; it does not submit anywhere.
+It is a static single-page application: all content lives in data files, and there is no backend of its own. The enquiry form emails each submission to info@arcinds.com through Web3Forms (access key and settings in `src/utils/enquiry.ts`); if sending fails, visitors can email the enquiry from their own email app.
 
 ## Tech Stack
 
@@ -40,6 +40,17 @@ npm run format:check
 npm run format
 ```
 
+## End-to-End Tests
+
+Playwright tests in `e2e/` check every page, navigation, the mobile menu and the enquiry form, on a desktop and a mobile viewport. They build the site, serve it with `vite preview` and use the locally installed Google Chrome. The email service is intercepted, so tests never send real enquiries.
+
+```bash
+npm run test:e2e      # run all tests
+npm run test:e2e:ui   # interactive mode
+```
+
+An HTML report is written to `playwright-report/` (open it with `npx playwright show-report`).
+
 ## Production Build
 
 Type-check and build the site into `dist/`:
@@ -60,9 +71,9 @@ npm run preview
 
 ```text
 arc-industries-website/
-├── public/                  Static files served as-is (favicon, robots.txt, sitemap.xml)
+├── public/                  Static files served as-is (favicons, robots.txt, sitemap.xml)
 ├── src/
-│   ├── assets/              Images and files imported by components
+│   ├── assets/              Logo (arc-logo.PNG original, web crops in assets/logo/) and images
 │   ├── components/
 │   │   ├── common/          Reusable building blocks (Section, SectionHeading, Eyebrow, ProjectCard, ...)
 │   │   ├── home/            Homepage sections (Hero, Highlights, Services, Projects, ...)
@@ -125,6 +136,6 @@ To be documented. The site builds to static files in `dist/`. Requirements for t
 - URL: `https://<github-username>.github.io/<repository-name>/`
 - The workflow builds with `BASE_PATH=/<repository-name>/` and `VITE_REVIEW_BUILD=true`, which adds `noindex` to every page.
 - `404.html` is a copy of `index.html`, so direct visits and refreshes on routes such as `/about` work. GitHub Pages returns HTTP 404 for those first loads, which is expected.
-- The review site is public. The enquiry form does not send email; it offers the visitor's email app instead.
+- The review site is public. The enquiry form sends real emails to info@arcinds.com, so test submissions arrive in that inbox.
 
 The production build for `arcinds.com` is a plain `npm run build` and is not affected by these settings.

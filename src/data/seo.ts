@@ -18,7 +18,7 @@ export const pageMeta = {
   about: {
     title: 'About ARC Industries | Bengaluru Construction Company',
     description:
-      'ARC Industries is a Bengaluru-based construction company and Class II KPWD registered contractor with 8+ years of experience in Government, PSU and Private sector projects.',
+      'ARC Industries is a Bengaluru-based construction company and KPWD & CPWD contractor with 13+ years of experience in Government, PSU and Private sector projects.',
     path: paths.about,
   },
   services: {
@@ -34,9 +34,9 @@ export const pageMeta = {
     path: paths.projects,
   },
   clients: {
-    title: 'Government & PSU Clients | ARC Industries',
+    title: 'Clients | ARC Industries',
     description:
-      'Selected Government and PSU clients of ARC Industries, including BMRCL, HAL, ITI Limited and BESCOM.',
+      'Selected clients of ARC Industries, including BMRCL, HAL, ITI Limited, BESCOM, JIPMER and Phoenix Mills.',
     path: paths.clients,
   },
   certifications: {

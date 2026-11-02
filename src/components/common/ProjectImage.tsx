@@ -38,7 +38,7 @@ export default function ProjectImage({
         position: 'relative',
         aspectRatio,
         overflow: 'hidden',
-        borderRadius: 0.5,
+        borderRadius: 1.5,
         bgcolor: 'background.muted',
       }}
     >

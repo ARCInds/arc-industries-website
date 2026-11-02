@@ -7,6 +7,7 @@ import Section from '../components/common/Section';
 import SectionHeading from '../components/common/SectionHeading';
 import EnquiryForm from '../components/contact/EnquiryForm';
 import { company, contact } from '../data/company';
+import { pageHeroImages } from '../data/images';
 import { pageMeta } from '../data/seo';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -31,12 +32,13 @@ export default function ContactPage() {
     <>
       <PageHero
         breadcrumb="Contact"
+        background={pageHeroImages.contact}
         eyebrow="Contact ARC Industries"
         title="Have a project in mind?"
         subtitle="We welcome enquiries for Government, PSU, commercial, residential and other construction projects."
       />
 
-      <Section labelledBy="enquiry-heading">
+      <Section labelledBy="enquiry-heading" fill>
         <Grid container spacing={{ xs: 8, md: 10 }}>
           <Grid size={{ xs: 12, md: 7 }}>
             <SectionHeading
@@ -54,13 +56,23 @@ export default function ContactPage() {
               <Box
                 component="section"
                 aria-labelledby="details-heading"
-                sx={{
+                sx={(theme) => ({
+                  position: 'relative',
+                  overflow: 'hidden',
                   p: { xs: 3, md: 4 },
-                  border: 1,
-                  borderColor: 'divider',
-                  borderTop: 3,
-                  borderTopColor: 'primary.main',
-                }}
+                  bgcolor: 'background.paper',
+                  borderRadius: 2,
+                  border: `1px solid ${theme.palette.divider}`,
+                  boxShadow: theme.brand.cardShadowHover,
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    insetInline: 0,
+                    top: 0,
+                    height: 4,
+                    backgroundImage: theme.brand.gradient,
+                  },
+                })}
               >
                 <Typography
                   id="details-heading"
@@ -70,17 +82,31 @@ export default function ContactPage() {
                 >
                   Contact Details
                 </Typography>
-                <Box component="address" sx={{ fontStyle: 'normal' }}>
+                <Box
+                  component="address"
+                  sx={{
+                    fontStyle: 'normal',
+                    display: 'grid',
+                    gridTemplateColumns: {
+                      xs: '1fr',
+                      md: 'repeat(2, minmax(0, 1fr))',
+                      lg: 'auto auto',
+                    },
+                    columnGap: { md: 3, lg: 2.5 },
+                  }}
+                >
                   {details.map(({ label, value, href, icon: Icon }) => (
                     <Box
                       key={label}
                       sx={{
                         display: 'flex',
                         gap: 2,
-                        py: 2,
+                        py: { xs: 2, md: 1.75 },
                         borderBottom: 1,
                         borderColor: 'divider',
                         '&:last-of-type': { borderBottom: 0, pb: 0 },
+                        // In the two-column layout the last row has no divider.
+                        '&:nth-last-of-type(2)': { borderBottom: { md: 0 }, pb: { md: 0 } },
                       }}
                     >
                       <Box sx={{ color: 'secondary.dark', display: 'flex', pt: 0.5 }}>
@@ -97,7 +123,13 @@ export default function ContactPage() {
                         {href ? (
                           <Link
                             href={href}
-                            sx={{ fontWeight: 600, color: 'primary.main', wordBreak: 'break-word' }}
+                            sx={{
+                              fontWeight: 600,
+                              color: 'primary.main',
+                              // Phone and email stay on one line on large screens; the columns size to fit them.
+                              whiteSpace: { lg: 'nowrap' },
+                              wordBreak: 'break-word',
+                            }}
                           >
                             {value}
                           </Link>
@@ -115,13 +147,16 @@ export default function ContactPage() {
               <Box
                 component="section"
                 aria-labelledby="direct-heading"
-                sx={{
+                sx={(theme) => ({
                   position: 'relative',
                   overflow: 'hidden',
                   p: { xs: 3, md: 4 },
+                  borderRadius: 2,
                   bgcolor: 'primary.main',
+                  backgroundImage: theme.brand.deepGradient,
                   color: 'common.white',
-                }}
+                  boxShadow: theme.brand.glow,
+                })}
               >
                 <GridPattern size={48} />
                 <Box sx={{ position: 'relative' }}>

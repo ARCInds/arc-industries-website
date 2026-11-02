@@ -1,8 +1,6 @@
 import AboutSection from '../components/home/AboutSection';
 import ClientsSection from '../components/home/ClientsSection';
-import ContactCta from '../components/home/ContactCta';
 import HeroSection from '../components/home/HeroSection';
-import HighlightsStrip from '../components/home/HighlightsStrip';
 import ProjectsSection from '../components/home/ProjectsSection';
 import PurposeSection from '../components/home/PurposeSection';
 import QualitySafetySection from '../components/home/QualitySafetySection';
@@ -17,7 +15,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <HighlightsStrip />
       <AboutSection />
       <ServicesSection />
       <ProjectsSection />
@@ -25,7 +22,6 @@ export default function HomePage() {
       <WhyChooseSection />
       <QualitySafetySection />
       <PurposeSection />
-      <ContactCta />
     </>
   );
 }

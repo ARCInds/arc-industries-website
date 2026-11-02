@@ -1,16 +1,14 @@
-import { Box, Link, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router';
+import { Box } from '@mui/material';
+import ClientCard from '../components/common/ClientCard';
 import PageHero from '../components/common/PageHero';
 import Section from '../components/common/Section';
 import SectionHeading from '../components/common/SectionHeading';
-import ContactCta from '../components/home/ContactCta';
-import { governmentClients } from '../data/clients';
+import { clients } from '../data/clients';
+import { pageHeroImages } from '../data/images';
 import { recentProjects } from '../data/projects';
 import { pageMeta } from '../data/seo';
 import { usePageMeta } from '../hooks/usePageMeta';
-import { paths } from '../routes/paths';
 import type { Client } from '../types/content';
-import { formatIndex } from '../utils/format';
 
 /** Projects in the project data whose client is this organisation. */
 const relatedProjects = (client: Client) =>
@@ -23,80 +21,44 @@ export default function ClientsPage() {
     <>
       <PageHero
         breadcrumb="Clients"
+        background={pageHeroImages.clients}
         eyebrow="Clients"
-        title="Government & PSU relationships."
-        subtitle="Selected Government and public-sector organizations associated with ARC Industries."
+        title="Client relationships."
+        subtitle="Selected Government, PSU and other organizations associated with ARC Industries."
       />
 
-      <Section labelledBy="client-list-heading">
+      <Section labelledBy="client-list-heading" fill>
         <SectionHeading
           id="client-list-heading"
-          eyebrow="Government & PSU"
-          title="Selected Government & PSU Clients"
+          eyebrow="Clients"
+          title="A Few Of Our Prestigious Clients"
+          highlight="Prestigious Clients"
         />
 
         <Box
           component="ol"
-          sx={{ listStyle: 'none', m: 0, p: 0, borderBottom: 1, borderColor: 'divider' }}
+          sx={{
+            listStyle: 'none',
+            m: 0,
+            p: 0,
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' },
+            gridAutoRows: '1fr',
+            // The two rows of cards stretch to fill the screen.
+            flexGrow: { md: 1 },
+            gap: { xs: 2, md: 3 },
+          }}
         >
-          {governmentClients.map((client, index) => {
-            const projects = relatedProjects(client);
-            return (
-              <Box
-                component="li"
-                key={client.name}
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { xs: '1fr', md: '96px 3fr 4fr 4fr' },
-                  alignItems: 'baseline',
-                  columnGap: 4,
-                  rowGap: 1,
-                  py: { xs: 3.5, md: 5 },
-                  borderTop: 1,
-                  borderColor: 'divider',
-                }}
-              >
-                <Typography
-                  aria-hidden
-                  sx={{
-                    fontWeight: 600,
-                    color: 'secondary.dark',
-                    fontVariantNumeric: 'tabular-nums',
-                  }}
-                >
-                  {formatIndex(index)}
-                </Typography>
-                <Typography
-                  variant="h3"
-                  component="h3"
-                  sx={{ color: 'primary.main', fontSize: { xs: '1.75rem', md: '2rem' } }}
-                >
-                  {client.shortName ?? client.name}
-                </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>
-                  {client.shortName ? client.name : ''}
-                </Typography>
-                <Box>
-                  {projects.map((project) => (
-                    <Typography
-                      key={project.title}
-                      variant="body2"
-                      sx={{ color: 'text.secondary' }}
-                    >
-                      Related project:{' '}
-                      <Link component={RouterLink} to={paths.projects} sx={{ fontWeight: 600 }}>
-                        {project.title}
-                      </Link>
-                    </Typography>
-                  ))}
-                </Box>
-              </Box>
-            );
-          })}
+          {clients.map((client, index) => (
+            <ClientCard
+              key={`${client.name}-${String(index)}`}
+              client={client}
+              index={index}
+              projects={relatedProjects(client)}
+            />
+          ))}
         </Box>
       </Section>
-
-      <ContactCta />
     </>
   );
 }

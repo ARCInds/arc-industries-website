@@ -9,8 +9,9 @@ import {
 } from '@mui/material';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { mainNavigation } from '../../data/navigation';
+import { useHomeScrollSpy } from '../../hooks/useHomeScrollSpy';
 import { paths } from '../../routes/paths';
 import Logo from '../common/Logo';
 import MobileNav from './MobileNav';
@@ -24,6 +25,9 @@ const contactItem = mainNavigation.find((item) => item.path === paths.contact);
 export default function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const scrolled = useScrollTrigger({ disableHysteresis: true, threshold: 8 });
+  // On the homepage the highlight follows the section being read; elsewhere, the current page.
+  const spyPath = useHomeScrollSpy(useLocation().pathname === paths.home);
+  const currentClass = spyPath ? '&.spy-current' : '&.active';
 
   return (
     <AppBar position="sticky" sx={{ boxShadow: scrolled ? 2 : 0 }}>
@@ -48,6 +52,7 @@ export default function Header() {
                 component={NavLink}
                 to={item.path}
                 end={item.path === paths.home}
+                className={spyPath === item.path ? 'spy-current' : undefined}
                 sx={(theme) => ({
                   position: 'relative',
                   px: 1.75,
@@ -61,7 +66,7 @@ export default function Header() {
                     right: theme.spacing(1.75),
                     bottom: 2,
                     height: 2,
-                    bgcolor: 'secondary.main',
+                    backgroundImage: theme.brand.gradient,
                     transform: 'scaleX(0)',
                     transformOrigin: 'left',
                     transition: theme.transitions.create('transform', {
@@ -69,15 +74,28 @@ export default function Header() {
                     }),
                   },
                   '&:hover': { bgcolor: 'transparent', color: 'primary.main' },
-                  '&:hover::after, &.active::after': { transform: 'scaleX(1)' },
-                  '&.active': { color: 'primary.main', fontWeight: 600 },
+                  [`&:hover::after, ${currentClass}::after`]: { transform: 'scaleX(1)' },
+                  [currentClass]: { color: 'primary.main', fontWeight: 600 },
                 })}
               >
                 {item.label}
               </Button>
             ))}
             {contactItem && (
-              <Button component={NavLink} to={contactItem.path} variant="contained" sx={{ ml: 2 }}>
+              <Button
+                component={NavLink}
+                to={contactItem.path}
+                variant="contained"
+                color="secondary"
+                className={spyPath === contactItem.path ? 'spy-current' : undefined}
+                sx={(theme) => ({
+                  ml: 2,
+                  // Ring around the button while the contact section is in view.
+                  '&.spy-current': {
+                    boxShadow: `0 0 0 3px ${theme.palette.common.white}, 0 0 0 5px ${theme.palette.secondary.light}`,
+                  },
+                })}
+              >
                 {contactItem.label}
               </Button>
             )}

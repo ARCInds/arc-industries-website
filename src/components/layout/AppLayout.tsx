@@ -1,8 +1,10 @@
 import { Box, Link } from '@mui/material';
 import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
 import PageLoader from '../common/PageLoader';
+import FloatingActions from './FloatingActions';
 import Footer from './Footer';
 import Header from './Header';
+import TopBar from './TopBar';
 
 const MAIN_CONTENT_ID = 'main-content';
 
@@ -29,6 +31,7 @@ export default function AppLayout() {
         Skip to main content
       </Link>
 
+      <TopBar />
       <Header />
 
       <Box
@@ -41,6 +44,7 @@ export default function AppLayout() {
       </Box>
 
       <Footer />
+      <FloatingActions />
       <ScrollRestoration />
     </Box>
   );

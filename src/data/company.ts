@@ -1,20 +1,29 @@
 import {
   BadgeCheck,
   CalendarCheck,
+  Clock,
   Handshake,
   HardHat,
   Landmark,
   Leaf,
   Lightbulb,
   Scale,
+  Settings,
   ShieldCheck,
 } from 'lucide-react';
-import type { Commitment, CoreValue, Fact, Feature, Highlight } from '../types/content';
+import type {
+  Commitment,
+  CoreValue,
+  Fact,
+  Feature,
+  HeroFeature,
+  Highlight,
+} from '../types/content';
 
 export const company = {
   name: 'ARC Industries',
   location: 'Bengaluru, Karnataka, India',
-  registration: 'Class II KPWD Registered Contractor',
+  registration: 'KPWD & CPWD Contractor',
   summary:
     'ARC Industries is a Bengaluru-based construction company specializing in Government, PSU, and Private sector projects.',
   focus:
@@ -35,7 +44,7 @@ export const companySnapshot: Fact[] = [
 /** About page overview, built only from verified company information. */
 export const aboutOverview: string[] = [
   company.summary,
-  'With 8+ years of experience, ARC Industries is a Class II KPWD Registered Contractor undertaking civil and infrastructure works.',
+  'With 13+ years of experience, ARC Industries is a KPWD & CPWD Contractor undertaking civil and infrastructure works.',
   company.focus,
 ];
 
@@ -50,12 +59,23 @@ export const contact = {
 export const hero = {
   eyebrow: 'ARC Industries',
   headline: 'Building with Quality. Executing with Responsibility.',
-  text: 'A Bengaluru-based construction company delivering Government, PSU and Private sector civil and infrastructure projects with a focus on quality, safety, compliance and timely execution.',
+  /** Part of the headline shown in the brand gradient. */
+  headlineAccent: 'Executing with Responsibility.',
+  text: 'Civil and infrastructure construction for Government, PSU and Private sector clients — focused on quality, safety and on-time execution.',
 } as const;
 
+/** Hero icon row of key qualities (wording approved by ARC Industries). */
+export const heroFeatures: HeroFeature[] = [
+  { lines: ['Quality', 'Construction'], icon: ShieldCheck },
+  { lines: ['Safety', 'First'], icon: HardHat },
+  { lines: ['Timely', 'Execution'], icon: Clock },
+  { lines: ['Technical', 'Expertise'], icon: Settings },
+  { lines: ['Long-Term', 'Partnerships'], icon: Handshake },
+];
+
 export const highlights: Highlight[] = [
-  { value: '8+', label: 'Years of Experience', icon: CalendarCheck },
-  { value: 'Class II', label: 'KPWD Registered Contractor', icon: BadgeCheck },
+  { value: '13+', label: 'Years of Experience', icon: CalendarCheck },
+  { value: 'KPWD & CPWD', label: 'Contractor', icon: BadgeCheck },
   { value: 'Government & PSU', label: 'Project Experience', icon: Landmark },
   { value: 'Quality & Safety', label: 'Focused Execution', icon: ShieldCheck },
 ];

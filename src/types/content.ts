@@ -5,6 +5,12 @@ export interface NavItem {
   path: string;
 }
 
+/** A short two-line quality shown with an icon in the homepage hero. */
+export interface HeroFeature {
+  lines: [string, string];
+  icon: LucideIcon;
+}
+
 export interface Highlight {
   value: string;
   label: string;
@@ -46,7 +52,7 @@ export interface CoreValue {
   icon: LucideIcon;
 }
 
-/** A labelled fact, e.g. "Registration: Class II KPWD Registered Contractor". */
+/** A labelled fact, e.g. "Registration: KPWD & CPWD Contractor". */
 export interface Fact {
   label: string;
   value: string;
@@ -61,6 +67,12 @@ export interface Credential {
 export interface Client {
   name: string;
   shortName?: string;
+  /** Government or PSU organisation (shown with a civic-building icon). */
+  government?: boolean;
+  /** Short line under the name when there is no separate full name. */
+  note?: string;
+  /** Reserved slot shown as "Client name to be added" until real details are supplied. */
+  placeholder?: boolean;
 }
 
 export interface Project {

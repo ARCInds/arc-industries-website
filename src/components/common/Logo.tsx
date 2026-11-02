@@ -1,16 +1,20 @@
 import { Box } from '@mui/material';
 import { Link as RouterLink } from 'react-router';
+import emblem from '../../assets/logo/arc-emblem.png';
+import wordmarkLight from '../../assets/logo/arc-wordmark-light.png';
+import wordmark from '../../assets/logo/arc-wordmark.png';
 import { company } from '../../data/company';
 import { paths } from '../../routes/paths';
 
 interface LogoProps {
-  /** Use light text when placed on a dark background. */
+  /** Use the light wordmark for dark backgrounds (e.g. the footer). */
   inverse?: boolean;
 }
 
 /**
- * Temporary typographic wordmark. Replace the contents with the final ARC Industries
- * logo (e.g. an <img> of the SVG) once it is available.
+ * ARC Industries logo (emblem beside the wordmark), linking to the home page. The images are
+ * transparent cut-outs of src/assets/arc-logo.PNG; the link carries the accessible name,
+ * so the images themselves are decorative.
  */
 export default function Logo({ inverse = false }: LogoProps) {
   return (
@@ -20,34 +24,27 @@ export default function Logo({ inverse = false }: LogoProps) {
       aria-label={`${company.name} – Home`}
       sx={{
         display: 'inline-flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        textDecoration: 'none',
-        color: inverse ? 'common.white' : 'primary.main',
+        alignItems: 'center',
+        gap: { xs: 1, md: 1.5, lg: 1.75 },
+        flexShrink: 0,
       }}
     >
       <Box
-        component="span"
-        sx={{ fontSize: '1.625rem', fontWeight: 800, lineHeight: 1, letterSpacing: '0.1em' }}
-      >
-        ARC
-      </Box>
+        component="img"
+        src={emblem}
+        alt=""
+        width={161}
+        height={144}
+        sx={{ display: 'block', height: { xs: 44, md: 52, lg: 60 }, width: 'auto' }}
+      />
       <Box
-        component="span"
-        sx={{
-          mt: 0.5,
-          pt: 0.5,
-          borderTop: 2,
-          borderColor: 'secondary.main',
-          fontSize: '0.5625rem',
-          fontWeight: 600,
-          lineHeight: 1,
-          letterSpacing: '0.38em',
-          color: inverse ? 'grey.300' : 'text.secondary',
-        }}
-      >
-        INDUSTRIES
-      </Box>
+        component="img"
+        src={inverse ? wordmarkLight : wordmark}
+        alt=""
+        width={661}
+        height={54}
+        sx={{ display: 'block', height: { xs: 16, md: 18, lg: 24 }, width: 'auto' }}
+      />
     </Box>
   );
 }
